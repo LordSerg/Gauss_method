@@ -10,6 +10,7 @@ namespace Gauss_method
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Введите размер матрицы");
         }
     }
 }
