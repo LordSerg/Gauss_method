@@ -20,7 +20,7 @@ namespace Gauss_method
             //for (int i = 0; i < h; i++)
             //    for (int j = 0; j < w; j++)
             //    {
-            //        m[i,j]=Convert.ToDouble(Console.ReadLine());
+            //        m[i, j] = Convert.ToDouble(Console.ReadLine());
             //    }
             Random r = new Random();
             for (int i = 0; i < h; i++)
@@ -74,7 +74,7 @@ namespace Gauss_method
                 }
                 else
                     break;
-                for (int i1 = i + 1; i1 < h; i1++)
+                for (int i1 = i + 1+t; i1 < h; i1++)
                 {
                     if (m[i1, i] != 0 && m[i + t, i] != 0)
                     {
@@ -83,6 +83,7 @@ namespace Gauss_method
                         for (int j = 0; j < w; j++)
                         {
                             m[i1, j] = (m[i1, j] - m[i + t, j] * k) * m[i + t, i];
+                            m[i1, j] = (long)m[i1, j];
                         }
                         Console.WriteLine("От {0}-й строки отнимаем {1}-ю, домноженую на {2}/{3} ({4}) и умнажаем всю {0}-ю строку на {3}:", i1 + 1, i + 1 + t, a, b, k);
                         Show_matrix(m, h, w);
@@ -92,13 +93,13 @@ namespace Gauss_method
                 //это необходимо для уменшения коефициентов домножения
                 //по алгоритму эвклида:
                 bool bl = false;
-                int y = 0;
+                long y = 0;
                 for (int i1 = i; i1 < h; i1++)
                 {
                     if (w >= 2)
-                        y = NSK((int)m[i1, 0], (int)m[i1, 1]);
+                        y = NSK((long)m[i1, 0], (long)m[i1, 1]);
                     else
-                        y = (int)m[i1, 0];
+                        y = (long)m[i1, 0];
                     for (int j = 2; j < w; j++)
                     {
                         y = NSK(y, (int)m[i1, j]);
@@ -106,7 +107,10 @@ namespace Gauss_method
                     if (y >= 2)
                     {
                         for (int j = 0; j < w; j++)
+                        {
                             m[i1, j] /= y;
+                            m[i1, j] = (long)m[i1, j];
+                        }
                         bl = true;
                     }
                 }
@@ -129,11 +133,11 @@ namespace Gauss_method
                 Console.WriteLine();
             }
         }
-        static int NSK(int a,int b)
+        static long NSK(long a,long b)
         {
             if (a != 0 && b != 0)
             {
-                int k = Math.Abs(a), p = Math.Abs(b);
+                long k = Math.Abs(a), p = Math.Abs(b);
                 if (Math.Abs(a) > Math.Abs(b))
                 {
                     k = Math.Abs(b);
